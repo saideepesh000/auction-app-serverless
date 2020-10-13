@@ -28,13 +28,26 @@ functions:
           method: POST
           path: /createAuction
 
+  getAuctions:
+    handler: src/handlers/getAuctions.handler
+    events:
+      - http:
+          method: GET
+          path: /getAuctions
+
   getAuction:
     handler: src/handlers/getAuction.handler
     events:
       - http:
           method: GET
-          path: /createAuction 
+          path: /getAuction/{id}
 
+  placeBid:
+    handler: src/handlers/placeBid.handler
+    events:
+      - http:
+          method: PATCH
+          path: /auction/{id}/bid
 
 custom:
   AuctionsTable:
