@@ -10,6 +10,10 @@ async function placeBid(event, context) {
   const { id } = event.pathParameters;
   const { amount } = event.body;
 
+  if(auction.status !==  'OPEN'){
+    throw new createError.Forbidden('You can redeploy on CLOSED funs');
+  }
+
   const auction = await getAuctionById(id);
   if (amount <= auction.highestBid.amount){
     throw new createError.Forbidden(`Bid id must be > ${auction.highestBid.amount}`);
