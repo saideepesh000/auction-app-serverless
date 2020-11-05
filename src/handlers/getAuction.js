@@ -1,6 +1,8 @@
 import AWS from 'aws-sdk';
 import commonMid from '../helper/CommonMid';
+import validator from '@middy/validator';
 import createError from 'http-errors';
+import getAuctionsSchema from '../helper/schema/getAuctionsSchema';
 
 const dynamodb = new AWS.DynamoDB.DocumentClient();
 
@@ -37,4 +39,5 @@ async function getAuction(event, context) {
   };
 }
 
-export const handler = commonMid(getAuction);
+export const handler = commonMid(getAuction)
+.use(validator({inputSchema: getAuctionsSchema, useDefault: true}));

@@ -1,6 +1,9 @@
 import AWS from 'aws-sdk';
 import commonMiddleware from '../helper/commonMid';
+import validator from '@middy/validator';
 import createError from 'http-errors';
+import placeBitSchema from '../helper/schema/placeBitSchema';
+
 
 import {getAuctionById} from './getAuction';
 
@@ -45,4 +48,5 @@ async function placeBid(event, context) {
   };
 }
 
-export const handler = commonMiddleware(placeBid);
+export const handler = commonMiddleware(placeBid)
+  .use(validator({ inputSchema: placeBitSchema}));
